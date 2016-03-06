@@ -14,16 +14,12 @@
 	<rect x="2.808" y="1.07" fill="#FFFFFF" width="1.058" height="7.214"/>
 	<rect x="30.551" y="1.07" fill="#FFFFFF" width="1.059" height="7.213"/>
 </g>
+<g id="copper0">
 <g id="copper1">
-	<circle id="conn3_1_" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="13.526" cy="16.56" r="2.41"/>
-	<circle id="conn2_1_" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="20.727" cy="16.56" r="2.41"/>
-	<circle id="conn1_1_" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="27.928" cy="16.56" r="2.409"/>
-	<ellipse id="conn0_1_" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="6.328" cy="16.56" rx="2.461" ry="2.48"/>
-</g>
-<g id="copper0_1_">
 	<circle id="conn3" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="13.526" cy="16.56" r="2.41"/>
 	<circle id="conn2" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="20.727" cy="16.56" r="2.41"/>
-	<circle id="conn1" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="27.928" cy="16.56" r="2.409"/>
-	<ellipse id="conn0" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="6.328" cy="16.56" rx="2.461" ry="2.48"/>
+	<circle id="conn1" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="27.928" cy="16.56" r="2.41"/>
+	<circle id="conn0" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="6.328" cy="16.56" r="2.41"/>
+</g>
 </g>
 </svg>
