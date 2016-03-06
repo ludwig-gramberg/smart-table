@@ -10,9 +10,9 @@ const int TriggerPin = 2;
 const int EchoPin = 3;
 const int ButtonUpPin = 12;
 const int ButtonDnPin = 11;
-const int LedUpPin = 7;
-const int LedDnPin = 6;
-const int LedOkPin = 5;
+const int DriveUpPin = 7;
+const int DriveDnPin = 6;
+const int SoundPin = 5;
 
 // consts
 
@@ -57,35 +57,29 @@ void setup() {
     buttonState = buttonStatePk;
     buttonStateLast = buttonStatePk;
 
-    pinMode(TriggerPin,OUTPUT);  // Trigger is an output pin
-    pinMode(EchoPin,INPUT);      // Echo is an input pin
+    // pin setup
+  
+    pinMode(TriggerPin,OUTPUT);
+    pinMode(EchoPin,INPUT);
     pinMode(ButtonUpPin, INPUT);
     pinMode(ButtonDnPin, INPUT);
-    pinMode(LedUpPin, OUTPUT);
-    pinMode(LedDnPin, OUTPUT);
-    pinMode(LedOkPin, OUTPUT);
-    Serial.begin(9600);          // Serial Output
+    pinMode(DriveUpPin, OUTPUT);
+    pinMode(DriveDnPin, OUTPUT);
+    pinMode(SoundPin, OUTPUT);
+    Serial.begin(9600);
     Serial.println("SETUP");
-
-    digitalWrite(LedUpPin, HIGH);
-    digitalWrite(LedDnPin, HIGH);
-    digitalWrite(LedOkPin, HIGH);
-
-    delay(200);
-
-    digitalWrite(LedUpPin, LOW);
-    digitalWrite(LedDnPin, LOW);
-    digitalWrite(LedOkPin, LOW);
 
     timeButtonUp = millis();
     timeButtonDn = millis();
 
     // init positions from eeprom
     int numberOfStoredValues = EEPROM.read(0);
-    if(numberOfStoredValues < 0 || numberOfStoredValues > 10) {
+    if(numberOfStoredValues < 0 || numberOfStoredValues > 10) {        
+        tone(SoundPin,50,2000);
         for (int i = 0 ; i < EEPROM.length() ; i++) {
             EEPROM.write(i, 0);
         }
+        tone(SoundPin,1000,50);
         numberOfStoredValues = 0;
     }
     
@@ -104,10 +98,18 @@ void setup() {
     }
     
     long currentHeight = GetDistance();
+    while(currentHeight == 0) {
+        currentHeight = GetDistance();
+    }
     tablePosition = GetTablePosition(currentHeight);
+
+    Serial.print("current Height ");
+    Serial.println(currentHeight);
 
     Serial.print("table position ");
     Serial.println(tablePosition);
+
+    tone(SoundPin,4000,100);    
 }
 
 int ReadButtonState() {
@@ -163,8 +165,11 @@ int ReadButtonState() {
 
     // both release help
 
-    if(buttonBtState == HIGH && now-timeButtonBt > timeButtonHold) {
-        confirmSignal();
+    if(buttonBtState == HIGH && now-timeButtonBt > timeButtonHold && now-timeButtonBt < timeButtonClear) {
+        tone(SoundPin,500,20);
+    }
+    if(buttonBtState == HIGH && now-timeButtonBt > timeButtonClear) {
+        tone(SoundPin,1000,20);
     }
 
     // button state
@@ -177,11 +182,11 @@ int ReadButtonState() {
         resetButtons();
     } else if(buttonUpState == LOW && timeButtonUpRelease-timeButtonUp < timeButtonClick && timeButtonUpRelease > 0) {
         buttonState = buttonStateUp;
-        confirmSignal();
+        tone(SoundPin,3000,20);
         resetButtons();
     } else if(buttonDnState == LOW && timeButtonDnRelease-timeButtonDn < timeButtonClick && timeButtonDnRelease > 0) {
         buttonState = buttonStateDn;
-        confirmSignal();
+        tone(SoundPin,3000,20);
         resetButtons();
     } else {
         buttonState = buttonStatePk;
@@ -333,16 +338,6 @@ void HandlePos() {
     GetPositions(numberOfStoredValues);
 }
 
-// 200ms
-void confirmSignal() {
-    for(int i=0;i<5;i++) {
-        digitalWrite(LedOkPin, HIGH);
-        delay(20);
-        digitalWrite(LedOkPin, LOW);
-        delay(20);
-    }
-}
-
 void resetButtons() {
     timeButtonBt = 0;
     timeButtonBtRelease = 0;
@@ -363,6 +358,15 @@ long GetDistance()
     long Duration = pulseIn(EchoPin,HIGH);
     long Distance = ((Duration / 2.9) / 2);
 
+    if(Distance == 0) {
+        Serial.println("sensor reset");
+        // reset sensor
+        pinMode(EchoPin, OUTPUT);
+        digitalWrite(EchoPin, LOW);
+        delay(100);
+        pinMode(EchoPin, INPUT);
+    }
+
     return Distance;
 }
 
@@ -382,17 +386,17 @@ int GetTablePosition(long currentHeight) {
 // -1=dn, 1=up
 void tableMove(int direction) {
 
-    int ledDirPin;
+    int DirPin;
     
     if(direction > 0) {
-        ledDirPin = LedUpPin;
+        DirPin = DriveUpPin;
         Serial.println("table up");
     } else {
-        ledDirPin = LedDnPin;
+        DirPin = DriveDnPin;
         Serial.println("table down");
     }
 
-    digitalWrite(ledDirPin, HIGH);
+    digitalWrite(DirPin, HIGH);
 
     // current table pos
     Serial.print("table at pos ");
@@ -454,7 +458,7 @@ void tableMove(int direction) {
             drive = 4;
             tablePosition = currentPos;
             Serial.print("table reached position ");
-            Serial.println(tablePosition);
+            Serial.println(tablePosition);            
         }
         
         distAvgSlot++;
@@ -466,7 +470,10 @@ void tableMove(int direction) {
     if(drive == 2 || drive == 3) {
         tablePosition = GetTablePosition(distAvgResult);
     }
+    if(tablePosition > -1) {
+        tone(SoundPin,4000,100);
+    }
 
     Serial.println("table stop");
-    digitalWrite(ledDirPin, LOW);
+    digitalWrite(DirPin, LOW);
 }

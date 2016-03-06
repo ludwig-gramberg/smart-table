@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="part" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="34.25px" height="22.395px" viewBox="0 0 34.25 22.395" enable-background="new 0 0 34.25 22.395" xml:space="preserve">
+<g id="silkscreen">
+	<rect x="1.938" y="12.311" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" width="30.375" height="8.5"/>
+	<rect x="2.809" y="8.284" fill="#FFFFFF" width="28.8" height="1.07"/>
+	<rect x="5.501" y="9.355" fill="#FFFFFF" width="1.814" height="2.499"/>
+	<rect x="27.101" y="9.355" fill="#FFFFFF" width="1.813" height="2.499"/>
+	<rect x="19.899" y="9.355" fill="#FFFFFF" width="1.814" height="2.499"/>
+	<rect x="12.7" y="9.355" fill="#FFFFFF" width="1.814" height="2.499"/>
+	<rect x="2.809" fill="#FFFFFF" width="28.801" height="1.07"/>
+	<rect x="2.808" y="1.07" fill="#FFFFFF" width="1.058" height="7.214"/>
+	<rect x="30.551" y="1.07" fill="#FFFFFF" width="1.059" height="7.213"/>
+</g>
+<g id="copper1">
+	<circle id="conn3_1_" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="13.526" cy="16.56" r="2.41"/>
+	<circle id="conn2_1_" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="20.727" cy="16.56" r="2.41"/>
+	<circle id="conn1_1_" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="27.928" cy="16.56" r="2.409"/>
+	<ellipse id="conn0_1_" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="6.328" cy="16.56" rx="2.461" ry="2.48"/>
+</g>
+<g id="copper0_1_">
+	<circle id="conn3" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="13.526" cy="16.56" r="2.41"/>
+	<circle id="conn2" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="20.727" cy="16.56" r="2.41"/>
+	<circle id="conn1" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="27.928" cy="16.56" r="2.409"/>
+	<ellipse id="conn0" fill="none" stroke="#F9B233" stroke-width="1.4173" cx="6.328" cy="16.56" rx="2.461" ry="2.48"/>
+</g>
+</svg>
